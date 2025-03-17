@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 	"scaffold-demo/config"
-	_ "scaffold-demo/config"
+	"scaffold-demo/middlewares"
 	"scaffold-demo/routers"
 	"scaffold-demo/utils/logs"
 
@@ -16,6 +16,7 @@ func main() {
 	//2. 配置gin
 	fmt.Println("程序开始运行...")
 	r := gin.Default()
+	r.Use(middlewares.JWTAuth)
 	logs.Info(nil, "程序启动成功")
 	//测试生成jwt token是否可用
 	// ss, _ := jwtutil.GenToken("ddd") // 这里使用 ss
