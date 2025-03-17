@@ -17,11 +17,11 @@ type UserInfo struct {
 func Login(r *gin.Context) {
 	// 1.获取前端传递的用户名和密码
 	userInfo := UserInfo{}
+	returnData := config.NewReturnData()
 	if err := r.ShouldBindJSON(&userInfo); err != nil {
-		r.JSON(200, gin.H{
-			"message": err.Error(),
-			"status":  401,
-		})
+		returnData.Status = 401
+		returnData.Message = err.Error()
+		r.JSON(200, returnData) //封装规范JSON
 		return
 	}
 	logs.Debug(map[string]interface{}{"用户名": userInfo.Username, "密码": userInfo.Password}, "开始验证登陆信息")
@@ -58,6 +58,7 @@ func Login(r *gin.Context) {
 }
 
 func Logout(r *gin.Context) {
+
 	//退出
 	//实现退出逻辑
 	r.JSON(200, gin.H{

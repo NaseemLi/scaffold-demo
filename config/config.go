@@ -20,6 +20,21 @@ var (
 	Password   string
 )
 
+type RetrunData struct {
+	Status  int                    `json:"status"`
+	Message string                 `json:"message"`
+	Data    map[string]interface{} `json:"data"`
+}
+
+// 构造函数
+func NewReturnData() RetrunData {
+	returnData := RetrunData{}
+	returnData.Status = 200
+	data := make(map[string]interface{})
+	returnData.Data = data
+	return returnData
+}
+
 func initLogConfig(logLevel string) {
 	//配置程序的日志输出级别
 	if logLevel == "debug" {
