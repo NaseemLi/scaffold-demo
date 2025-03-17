@@ -44,8 +44,11 @@ func init() {
 	//获取jwt过期时间的配置
 	viper.SetDefault("JWT_EXPIRE_TIME", 120)
 	//获取用户名和密码
-	viper.SetDefault("USERNAME", "lizeyu")
-	viper.SetDefault("PASSWORD", " password")
+	//加密用户名和密码 md5
+	//lizeyu password
+	viper.SetDefault("USERNAME", "90A6F4835082FF380C3E94C7D0456BEA")
+	viper.SetDefault("PASSWORD", "5F4DCC3B5AA765D61D8327DEB882CF99")
+
 	viper.AutomaticEnv()
 	logLevel := viper.GetString("LOG_LEVEL")
 	Port = viper.GetString("PORT")
