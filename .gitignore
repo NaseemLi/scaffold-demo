@@ -1,0 +1,36 @@
+# 环境变量（包含敏感信息）
+.env
+
+# IDE
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo
+*~
+
+# Go 构建产物
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/bin/
+/dist/
+/vendor/
+go.work
+go.work.sum
+
+# 日志与临时文件
+/tmp/
+/logs/
+*.log
+
+# 测试覆盖率
+coverage.out
+
+# 系统文件
+.DS_Store
+Thumbs.db

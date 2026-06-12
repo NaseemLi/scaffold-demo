@@ -11,7 +11,7 @@ func login(authGroup *gin.RouterGroup) {
 }
 
 func logout(authGroup *gin.RouterGroup) {
-	authGroup.GET("/logout", auth.Logout)
+	authGroup.POST("/logout", auth.Logout)
 }
 
 func RegisterSubRouters(g *gin.RouterGroup) {

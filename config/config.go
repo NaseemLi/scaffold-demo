@@ -18,17 +18,25 @@ var (
 	JwtExpTime int64 //jwt token过期时间 单位：分钟
 	Username   string
 	Password   string
+	// MySQL 配置
+	DBHost     string
+	DBPort     string
+	DBUser     string
+	DBPassword string
+	DBName     string
+	DBMaxIdle  int
+	DBMaxOpen  int
 )
 
-type RetrunData struct {
+type ReturnData struct {
 	Status  int                    `json:"status"`
 	Message string                 `json:"message"`
 	Data    map[string]interface{} `json:"data"`
 }
 
 // 构造函数
-func NewReturnData() RetrunData {
-	returnData := RetrunData{}
+func NewReturnData() ReturnData {
+	returnData := ReturnData{}
 	returnData.Status = 200
 	data := make(map[string]interface{})
 	returnData.Data = data
@@ -45,7 +53,7 @@ func initLogConfig(logLevel string) {
 	//文件名和行号
 	logrus.SetReportCaller(true)
 	//日志格式改为json
-	logrus.SetFormatter(&logrus.JSONFormatter{TimestampFormat: "TimeFormat"})
+	logrus.SetFormatter(&logrus.JSONFormatter{TimestampFormat: TimeFormat})
 }
 
 func init() {
@@ -55,14 +63,21 @@ func init() {
 	//获取程序启动端口号配置
 	viper.SetDefault("PORT", ":8080")
 	//获取jwt加密的secret
-	viper.SetDefault("JWT_SIGN_KEY", "lizeyu")
+	viper.SetDefault("JWT_SIGN_KEY", "user")
 	//获取jwt过期时间的配置
 	viper.SetDefault("JWT_EXPIRE_TIME", 120)
 	//获取用户名和密码
-	//加密用户名和密码 md5
-	//lizeyu password
-	viper.SetDefault("USERNAME", "90A6F4835082FF380C3E94C7D0456BEA")
-	viper.SetDefault("PASSWORD", "5F4DCC3B5AA765D61D8327DEB882CF99")
+	//默认管理员账号
+	viper.SetDefault("USERNAME", "user")
+	viper.SetDefault("PASSWORD", "password")
+	// MySQL 默认配置
+	viper.SetDefault("DB_HOST", "127.0.0.1")
+	viper.SetDefault("DB_PORT", "3306")
+	viper.SetDefault("DB_USER", "root")
+	viper.SetDefault("DB_PASSWORD", "")
+	viper.SetDefault("DB_NAME", "scaffold_demo")
+	viper.SetDefault("DB_MAX_IDLE", 10)
+	viper.SetDefault("DB_MAX_OPEN", 100)
 
 	viper.AutomaticEnv()
 	logLevel := viper.GetString("LOG_LEVEL")
@@ -71,6 +86,13 @@ func init() {
 	JwtExpTime = viper.GetInt64("JWT_EXPIRE_TIME")
 	Username = viper.GetString("USERNAME")
 	Password = viper.GetString("PASSWORD")
+	DBHost = viper.GetString("DB_HOST")
+	DBPort = viper.GetString("DB_PORT")
+	DBUser = viper.GetString("DB_USER")
+	DBPassword = viper.GetString("DB_PASSWORD")
+	DBName = viper.GetString("DB_NAME")
+	DBMaxIdle = viper.GetInt("DB_MAX_IDLE")
+	DBMaxOpen = viper.GetInt("DB_MAX_OPEN")
 	//加载日志输出格式
 	initLogConfig(logLevel)
 }
